@@ -1,0 +1,549 @@
+/* =========================================================
+   Expense Tracker App — style.css
+   Material You Design System
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@500&display=swap');
+
+:root {
+  /* Material You tokens */
+  --md-sys-color-primary: #6750A4;
+  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-primary-container: #EADDFF;
+  --md-sys-color-surface: #FFFBFE;
+  --md-sys-color-surface-variant: #E7E0EC;
+  --md-sys-color-on-surface: #1C1B1F;
+  --md-sys-color-on-surface-variant: #49454F;
+  --md-sys-color-outline: #79747E;
+  --md-sys-color-outline-variant: #CAC4D0;
+
+  /* Semantic */
+  --color-income: #386A20;
+  --bg-income: #C3EFAD;
+  --color-expense: #BA1A1A;
+  --bg-expense: #FFDAD6;
+
+  /* Elevation shadows */
+  --elevation-1: 0 1px 2px rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15);
+  --elevation-2: 0 1px 2px rgba(0,0,0,0.3), 0 2px 6px 2px rgba(0,0,0,0.15);
+
+  --font-family: 'Roboto', sans-serif;
+  --card-radius: 28px;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Organic blur shapes — signature Material You atmospheric depth */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  aria-hidden: true;
+}
+
+body::before {
+  width: 500px;
+  height: 500px;
+  background: var(--md-sys-color-primary);
+  opacity: 0.06;
+  filter: blur(90px);
+  top: -150px;
+  right: -150px;
+}
+
+body::after {
+  width: 350px;
+  height: 350px;
+  background: #7D5260;
+  opacity: 0.05;
+  filter: blur(70px);
+  bottom: 80px;
+  left: -100px;
+}
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+/* =========================================================
+   APP WRAPPER
+   ========================================================= */
+.tracker-app {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.tracker-app main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* =========================================================
+   CARD BASE (Material You surface)
+   ========================================================= */
+.tracker-summary__balance,
+.tracker-summary__stat,
+.tracker-form-section__card,
+.tracker-search,
+.tracker-transaction-list {
+  background: var(--md-sys-color-surface);
+  border-radius: var(--card-radius);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.tracker-summary__balance:hover,
+.tracker-summary__stat:hover,
+.tracker-form-section__card:hover,
+.tracker-transaction-list:hover {
+  box-shadow: var(--elevation-2);
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+.tracker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.tracker-header__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--md-sys-color-primary);
+}
+
+.tracker-header__user {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.tracker-header__user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.tracker-header__greeting {
+  font-size: 0.95rem;
+  color: var(--md-sys-color-on-surface);
+}
+
+.tracker-header__date {
+  font-size: 0.8rem;
+  color: var(--md-sys-color-on-surface-variant);
+  font-weight: 500;
+}
+
+.tracker-header__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--md-sys-color-primary-container);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+.tracker-summary {
+  display: grid;
+  grid-template-columns: 2fr 1.25fr 1.25fr;
+  gap: 1.25rem;
+}
+
+.tracker-summary__label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--md-sys-color-on-surface-variant);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.tracker-summary__balance {
+  background: linear-gradient(135deg, var(--md-sys-color-surface) 0%, var(--md-sys-color-primary-container) 100%);
+}
+
+.tracker-summary__balance-amount {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--md-sys-color-primary);
+  margin-top: auto;
+}
+
+.tracker-summary__stat-amount {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-top: auto;
+}
+
+.tracker-summary__stat-amount--income { color: var(--color-income); }
+.tracker-summary__stat-amount--expense { color: var(--color-expense); }
+
+/* =========================================================
+   FORM
+   ========================================================= */
+.tracker-form-section__card {
+  box-shadow: var(--elevation-1);
+}
+
+.tracker-form-section__heading {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--md-sys-color-on-surface-variant);
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.tracker-form {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+}
+
+.tracker-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.tracker-form__label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Material You text field: rounded top, bottom border only */
+.tracker-form__input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 4px 4px 0 0;
+  border: none;
+  border-bottom: 2px solid var(--md-sys-color-outline);
+  background: var(--md-sys-color-surface-variant);
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  outline: none;
+  color: var(--md-sys-color-on-surface);
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.tracker-form__input:focus {
+  border-bottom-color: var(--md-sys-color-primary);
+  background: color-mix(in srgb, var(--md-sys-color-surface-variant) 80%, var(--md-sys-color-primary) 20%);
+}
+
+/* Pill-shaped submit button */
+.tracker-form__submit {
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border: none;
+  padding: 0.85rem 1.75rem;
+  height: 48px;
+  border-radius: 9999px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), opacity 0.2s var(--ease);
+  box-shadow: var(--elevation-1);
+}
+
+.tracker-form__submit:hover {
+  opacity: 0.92;
+  box-shadow: var(--elevation-2);
+}
+
+.tracker-form__submit:active {
+  transform: scale(0.97);
+  box-shadow: none;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+.tracker-history {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.tracker-search {
+  padding: 1.25rem 1.5rem;
+}
+
+.tracker-search__form {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.tracker-search__form .tracker-form__input {
+  flex: 1;
+}
+
+/* Pill-shaped search button */
+.tracker-search__submit {
+  background: var(--md-sys-color-surface-variant);
+  color: var(--md-sys-color-on-surface);
+  border: none;
+  padding: 0 1.5rem;
+  border-radius: 9999px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease);
+}
+
+.tracker-search__submit:hover {
+  background: var(--md-sys-color-outline-variant);
+}
+
+/* =========================================================
+   TRANSACTION LIST
+   ========================================================= */
+.tracker-history__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.tracker-transaction-list__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.tracker-transaction-list__title {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--md-sys-color-on-surface-variant);
+  letter-spacing: 0.1em;
+}
+
+.tracker-transaction-list__container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* =========================================================
+   TRANSACTION CARD
+   ========================================================= */
+.tracker-transaction-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: 16px;
+  background: var(--md-sys-color-surface);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+}
+
+.tracker-transaction-item:hover {
+  box-shadow: var(--elevation-2);
+  transform: scale(1.01);
+}
+
+.tracker-transaction-item__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.tracker-transaction-item__icon--income {
+  background: var(--bg-income);
+  color: var(--color-income);
+}
+
+.tracker-transaction-item__icon--expense {
+  background: var(--bg-expense);
+  color: var(--color-expense);
+}
+
+.tracker-transaction-item__detail {
+  flex: 1;
+  min-width: 0;
+}
+
+.tracker-transaction-item__title {
+  font-weight: 500;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--md-sys-color-on-surface);
+}
+
+.tracker-transaction-item__date {
+  font-size: 0.78rem;
+  color: var(--md-sys-color-on-surface-variant);
+  margin-top: 2px;
+}
+
+.tracker-transaction-item__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.tracker-transaction-item__amount {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.tracker-transaction-item__amount--income { color: var(--color-income); }
+.tracker-transaction-item__amount--expense { color: var(--color-expense); }
+
+.tracker-transaction-item__type-label {
+  font-size: 0.75rem;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.tracker-transaction-item__actions {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-top: 0.2rem;
+}
+
+/* Pill-shaped action buttons */
+.tracker-transaction-item__btn {
+  background: transparent;
+  border: 1px solid var(--md-sys-color-outline);
+  padding: 0.25rem 0.85rem;
+  font-size: 0.75rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface);
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.tracker-transaction-item__btn:hover {
+  background: var(--md-sys-color-surface-variant);
+}
+
+.tracker-transaction-item__btn--delete:hover {
+  background: var(--bg-expense);
+  color: var(--color-expense);
+  border-color: var(--color-expense);
+}
+
+.tracker-transaction-item__btn--toggle:hover {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-primary);
+  border-color: var(--md-sys-color-primary);
+}
+
+/* Card entrance animation */
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.tracker-footer {
+  text-align: center;
+  padding: 1.5rem 0 0.5rem;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.82rem;
+  margin-top: 0.5rem;
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET (≤ 1024px)
+   ========================================================= */
+@media (max-width: 1024px) {
+  .tracker-summary { grid-template-columns: 1fr 1fr; }
+  .tracker-summary__balance { grid-column: span 2; }
+  .tracker-form { grid-template-columns: 1fr 1fr; }
+  .tracker-form__field:nth-child(1) { grid-column: span 2; }
+  .tracker-form__submit { grid-column: span 2; }
+  .tracker-history__grid { grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   RESPONSIVE — MOBILE (≤ 768px)
+   ========================================================= */
+@media (max-width: 768px) {
+  body { padding: 0.75rem; }
+  .tracker-app, .tracker-app main { gap: 1rem; }
+  .tracker-summary { grid-template-columns: 1fr; gap: 1rem; }
+  .tracker-summary__balance, .tracker-summary__stat { grid-column: span 1; padding: 1.25rem; }
+  .tracker-summary__balance-amount { font-size: 2rem; word-break: break-all; }
+  .tracker-summary__stat-amount { font-size: 1.75rem; }
+  .tracker-form-section__card { padding: 1.25rem; }
+  .tracker-form { display: flex; flex-direction: column; align-items: stretch; gap: 1.25rem; }
+  .tracker-form__submit { width: 100%; margin-top: 0.5rem; }
+  .tracker-history__grid { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+/* =========================================================
+   RESPONSIVE — SMALL MOBILE (≤ 640px)
+   ========================================================= */
+@media (max-width: 640px) {
+  .tracker-search__form { flex-direction: column; }
+  .tracker-search__submit { width: 100%; padding: 0.85rem; }
+  .tracker-transaction-item { flex-wrap: wrap; align-items: flex-start; }
+  .tracker-transaction-item__right { width: 100%; flex-direction: column; align-items: stretch; margin-top: 0.5rem; gap: 0.75rem; }
+  .tracker-transaction-item__amount { padding-left: 3.5rem; }
+  .tracker-transaction-item__actions { width: 100%; }
+  .tracker-transaction-item__btn { flex: 1; padding: 0.75rem 0; font-size: 0.85rem; text-align: center; }
+}

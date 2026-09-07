@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Story App - berbagi cerita beserta lokasinya menggunakan Dicoding Story API."
+    />
+    <link rel="shortcut icon" href="/favicon.png" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./images/icon-192.png" />
+    <meta name="theme-color" content="#1f6feb" />
+    <title>Story App - Berbagi Cerita</title>
+
+    <script type="module" src="/scripts/index.js"></script>
+  </head>
+  <body>
+    <a href="#main-content" id="skip-link" class="skip-link">Lewati ke konten utama</a>
+
+    <header class="app-header">
+      <div class="main-header container">
+        <a class="brand-name" href="#/">Story App</a>
+
+        <nav id="navigation-drawer" class="navigation-drawer"
+             aria-label="Navigasi utama">
+          <ul id="nav-list" class="nav-list">
+            <li><a href="#/">Beranda</a></li>
+            <li><a href="#/about">Tentang</a></li>
+            <li><a href="#/saved">Tersimpan</a></li>
+          </ul>
+          <ul id="auth-nav" class="nav-list nav-list-auth"></ul>
+        </nav>
+
+        <button id="drawer-button" class="drawer-button" aria-label="Buka menu navigasi"
+                aria-controls="navigation-drawer" aria-expanded="false">
+          &#9776;
+        </button>
+      </div>
+    </header>
+
+    <div id="offline-banner" class="offline-banner" role="status" aria-live="polite" hidden>
+      Anda sedang offline. Cerita baru akan dikirim otomatis saat koneksi kembali.
+    </div>
+
+    <main id="main-content" class="main-content" tabindex="-1"></main>
+
+    <footer class="app-footer">
+      <div class="container">
+        <p>Story App &copy; 2026 - Submission Dicoding</p>
+      </div>
+    </footer>
+  </body>
+</html>

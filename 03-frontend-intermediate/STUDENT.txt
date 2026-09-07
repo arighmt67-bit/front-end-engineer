@@ -1,0 +1,9 @@
+APP_URL=https://arighmt67-bit.github.io/story-app/
+API_BASE_URL=https://story-api.dicoding.dev/v1
+MAP_SERVICE_API_KEY=Tidak diperlukan (menggunakan Leaflet + OpenStreetMap & CARTO tile gratis tanpa API key)
+
+Akun uji terverifikasi:
+email    : aconk1788235813@test.com
+password : rahasia123
+
+(Reviewer juga dapat mendaftar akun baru langsung melalui menu "Daftar" pada aplikasi)

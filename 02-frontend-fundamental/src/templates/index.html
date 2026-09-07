@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Notes App - aplikasi pencatatan berbasis Web Component, CSS Grid, dan Dicoding Notes RESTful API."
+    />
+    <title>Notes App</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- custom element 1 : app bar, custom attribute brand & tagline -->
+    <app-bar
+      brand="Notes App"
+      tagline="Simpan ide sebelum ia menguap"
+    ></app-bar>
+
+    <main class="app-layout">
+      <section class="panel" aria-labelledby="form-heading">
+        <h2 id="form-heading" class="section-title">Tambah Catatan</h2>
+        <!-- custom element 2 : formulir, custom attribute batas panjang judul & isi -->
+        <note-form
+          max-title-length="50"
+          min-body-length="10"
+          submit-label="Simpan Catatan"
+        ></note-form>
+      </section>
+
+      <section class="panel" aria-labelledby="list-heading">
+        <div class="list-header">
+          <h2 id="list-heading" class="section-title">Daftar Catatan</h2>
+          <!-- custom element 3 : penghitung catatan, custom attribute label & total -->
+          <note-counter label="catatan" total="0"></note-counter>
+        </div>
+
+        <div class="tab-bar" role="tablist" aria-label="Filter catatan">
+          <button
+            type="button"
+            class="tab-button is-active"
+            data-view="active"
+            role="tab"
+            aria-selected="true"
+          >
+            Catatan Aktif
+          </button>
+          <button
+            type="button"
+            class="tab-button"
+            data-view="archived"
+            role="tab"
+            aria-selected="false"
+          >
+            Arsip
+          </button>
+        </div>
+
+        <!-- custom element 4 : indikator loading, custom attribute message & active -->
+        <loading-indicator
+          message="Memuat catatan dari server..."
+        ></loading-indicator>
+
+        <!-- custom element 5 : wadah daftar (CSS Grid), custom attribute pesan kosong -->
+        <notes-list
+          empty-message="Belum ada catatan. Tulis catatan pertamamu di formulir sebelah."
+        ></notes-list>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>
+        Dibuat dengan HTML, CSS, dan JavaScript murni &mdash; tanpa framework.
+        Data bersumber dari Dicoding Notes API v2.
+      </p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+Halo Tim Reviewer Dicoding,
+
+Berikut adalah submission Proyek Kedua / Terakhir untuk kelas:
+"Belajar Pengembangan Web Intermediate" - Story App.
+
+Aplikasi Single-Page Application (SPA) berbasis Vanilla JavaScript + Vite yang
+mengonsumsi Dicoding Story API, dengan dukungan PWA, Service Worker, Push
+Notification, dan IndexedDB untuk mode offline.
+
+Repositori : https://github.com/arighmt67-bit/story-app
+Demo online: https://arighmt67-bit.github.io/story-app/
+
+===================================================================
+PEMENUHAN KRITERIA SUBMISSION
+===================================================================
+
+KRITERIA 1: Mempertahankan Seluruh Kriteria Wajib Submission Sebelumnya (+4 pts)
+- SPA dengan transisi halaman berbasis View Transition API dan fallback mulus.
+- Menampilkan daftar cerita beserta marker lokasi interaktif pada peta (Leaflet).
+  Mengklik kartu cerita akan mengarahkan fokus peta (flyTo) dan membuka popup.
+- Fitur tambah cerita baru lengkap dengan deskripsi, pemilihan file foto /
+  kamera langsung via getUserMedia + canvas, serta penentuan koordinat peta.
+- Aksesibilitas: semantic HTML, lang="id", skip-to-content, tombol terlabel ARIA,
+  warna kontras, dan fokus navigasi keyboard yang jelas.
+
+KRITERIA 2: Menerapkan Push Notification (Skilled / +3 pts)
+- Service worker menangani push event dinamis dari Dicoding Story API
+  (memanfaatkan payload event: title, body, dan data).
+- Menggunakan VAPID public key resmi dari dokumentasi Dicoding Story API:
+  BCCs2eonMI-6H2ctvFaWg-UYdDv387Vno_bzUzALpB442r2lCnsHmtrx8biyPi_E-1fSGABK_Qs_GlvPoJJqxbk
+- Endpoint /v1/notifications/subscribe (POST dan DELETE) terintegrasi untuk
+  mendaftarkan dan menghapus langganan push pengguna.
+- Terdapat tombol toggle "Aktifkan Notifikasi" / "Matikan Notifikasi" pada
+  navigasi atas yang otomatis menyesuaikan status izin dan langganan di browser.
+
+KRITERIA 3: Implementasi PWA dengan Dukungan Instalasi dan Mode Offline (Advance / +4 pts)
+- Web App Manifest lengkap: name, short_name, start_url, theme_color, background_color,
+  display standalone, 3 variasi ikon (192, 512, 512-maskable), shortcuts, serta
+  screenshots untuk form factor "wide" (desktop 1280x720) dan "narrow" (mobile 540x960).
+- Tidak ada warning atau recommended action pada Chrome DevTools Application -> Manifest.
+- Service Worker menerapkan strategi:
+  * Network-first untuk API data dinamis sehingga konten cerita tetap dapat
+    dibuka saat perangkat sedang offline.
+  * Cache-first untuk aset statis, font, ikon, dan tile peta eksternal.
+  * App Shell caching saat install untuk menjamin aplikasi selalu dapat dimuat.
+
+KRITERIA 4: Penerapan IndexedDB (Advance / +4 pts)
+- Object store "saved-stories": fitur Create, Read, dan Delete cerita tersimpan
+  langsung dari antarmuka pengguna tanpa dependensi eksternal.
+- Halaman "Cerita Tersimpan" (#/saved) menyediakan interaktivitas penuh:
+  * Pencarian instan (search) berdasarkan nama pembuat atau isi cerita.
+  * Pengurutan (sort) berdasarkan waktu simpan terbaru, terlama, atau nama (A-Z).
+- Object store "outbox" untuk sinkronisasi offline <-> online (Advance):
+  * Pengguna tetap dapat membuat cerita baru meski sedang offline (data foto,
+    deskripsi, dan koordinat disimpan aman di IndexedDB outbox).
+  * Begitu koneksi internet kembali (event window.online atau saat halaman dimuat
+    ulang), seluruh cerita di outbox otomatis dikirim ke API tanpa intervensi manual.
+- Banner indikator status koneksi muncul saat perangkat beralih offline.
+
+KRITERIA 5: Distribusikan secara Publik (Wajib / Terpenuhi)
+- Aplikasi di-deploy dan dapat diakses publik via GitHub Pages:
+  https://arighmt67-bit.github.io/story-app/
+- Tautan disertakan di STUDENT.txt sesuai instruksi.
+
+===================================================================
+CARA MENJALANKAN SECARA LOKAL
+===================================================================
+1. npm install
+2. npm run dev       -> buka http://localhost:5173
+3. npm run build     -> hasil build produksi ada di folder dist/
+
+Akun uji:
+email    : aconk1788235813@test.com
+password : rahasia123

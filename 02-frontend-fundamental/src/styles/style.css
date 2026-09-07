@@ -1,0 +1,524 @@
+/* ============================================================
+   Notes App - stylesheet utama
+   Palet warna: colorhunt.co  (#222831 #393E46 #00ADB5 #EEEEEE)
+   ============================================================ */
+
+:root {
+  --color-dark: #222831;
+  --color-surface: #393e46;
+  --color-accent: #00adb5;
+  --color-accent-soft: rgba(0, 173, 181, 0.14);
+  --color-light: #eeeeee;
+  --color-muted: #9aa3ad;
+  --color-danger: #ff6b6b;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+
+  --space-xs: 6px;
+  --space-sm: 12px;
+  --space-md: 20px;
+  --space-lg: 32px;
+
+  --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.28);
+  --font-body:
+    'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  background-color: var(--color-dark);
+  background-image:
+    radial-gradient(
+      circle at 12% -10%,
+      rgba(0, 173, 181, 0.22),
+      transparent 45%
+    ),
+    radial-gradient(circle at 88% 0%, rgba(0, 173, 181, 0.12), transparent 40%);
+  color: var(--color-light);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- app bar ---------- */
+.app-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  background-color: rgba(34, 40, 49, 0.85);
+  border-bottom: 1px solid rgba(238, 238, 238, 0.08);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.app-bar__logo {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent);
+  color: var(--color-dark);
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.app-bar__brand {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.app-bar__tagline {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+/* ---------- layout utama : CSS Grid ---------- */
+.app-layout {
+  flex: 1;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) 1fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.panel {
+  background-color: rgba(57, 62, 70, 0.55);
+  border: 1px solid rgba(238, 238, 238, 0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-soft);
+}
+
+.panel:first-child {
+  position: sticky;
+  top: 104px;
+}
+
+.section-title {
+  margin: 0 0 var(--space-md);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-md);
+}
+
+.list-header .section-title {
+  margin: 0;
+}
+
+/* ---------- note counter ---------- */
+.note-counter {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background-color: var(--color-accent-soft);
+  border: 1px solid rgba(0, 173, 181, 0.35);
+  color: var(--color-accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.note-counter__value {
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+/* ---------- formulir ---------- */
+.note-form {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.form-field {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.form-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-light);
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--color-light);
+  background-color: rgba(34, 40, 49, 0.75);
+  border: 1.5px solid rgba(238, 238, 238, 0.16);
+  border-radius: var(--radius-sm);
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+  resize: vertical;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: rgba(154, 163, 173, 0.75);
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+.form-field textarea {
+  min-height: 140px;
+}
+
+/* state validasi realtime */
+.form-field.is-invalid input,
+.form-field.is-invalid textarea {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.16);
+}
+
+.form-field.is-valid input,
+.form-field.is-valid textarea {
+  border-color: var(--color-accent);
+}
+
+.field-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  min-height: 18px;
+}
+
+.validation-message {
+  font-size: 0.78rem;
+  color: var(--color-danger);
+  min-height: 18px;
+}
+
+.char-counter {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.char-counter.is-over {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.submit-button {
+  padding: 13px 18px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    transform 0.16s ease,
+    opacity 0.16s ease,
+    filter 0.16s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.submit-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ---------- daftar catatan : CSS Grid ---------- */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-md);
+  align-items: start;
+}
+
+.notes-empty {
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  color: var(--color-muted);
+  border: 1.5px dashed rgba(238, 238, 238, 0.18);
+  border-radius: var(--radius-md);
+}
+
+/* ---------- item catatan ---------- */
+.note-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  height: 100%;
+  padding: var(--space-md);
+  background-color: rgba(34, 40, 49, 0.9);
+  border: 1px solid rgba(238, 238, 238, 0.08);
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.note-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-soft);
+}
+
+.note-item__title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.note-item__date {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.note-item__body {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(238, 238, 238, 0.82);
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- footer ---------- */
+.app-footer {
+  padding: var(--space-md);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  border-top: 1px solid rgba(238, 238, 238, 0.06);
+}
+
+.app-footer p {
+  margin: 0;
+}
+
+/* ---------- responsive ---------- */
+@media screen and (max-width: 900px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .panel:first-child {
+    position: static;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .app-bar {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .app-bar__brand {
+    font-size: 1.1rem;
+  }
+
+  .app-bar__tagline {
+    font-size: 0.75rem;
+  }
+
+  .app-layout {
+    padding: var(--space-md) var(--space-sm);
+  }
+
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field-meta {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+/* ============================================================
+   Tambahan submission 2: tab arsip, indikator loading, aksi kartu
+   ============================================================ */
+
+.tab-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.12);
+  padding-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(238, 238, 238, 0.65);
+  background-color: transparent;
+  border: 1px solid rgba(238, 238, 238, 0.16);
+  border-radius: 999px;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.tab-button:hover {
+  color: #eeeeee;
+  border-color: rgba(0, 173, 181, 0.55);
+}
+
+.tab-button.is-active {
+  color: #222831;
+  background-color: #00adb5;
+  border-color: #00adb5;
+}
+
+.tab-button:focus-visible {
+  outline: 2px solid #00adb5;
+  outline-offset: 2px;
+}
+
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 42px 16px;
+  text-align: center;
+}
+
+.loading-indicator[hidden] {
+  display: none;
+}
+
+.loading-indicator__spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 4px solid rgba(0, 173, 181, 0.22);
+  border-top-color: #00adb5;
+  animation: notes-spin 0.8s linear infinite;
+}
+
+.loading-indicator__text {
+  margin: 0;
+  font-size: 0.92rem;
+  color: rgba(238, 238, 238, 0.72);
+}
+
+@keyframes notes-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.note-item__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(238, 238, 238, 0.1);
+  flex-wrap: wrap;
+}
+
+.note-action {
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    transform 0.15s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.note-action:hover {
+  transform: translateY(-1px);
+}
+
+.note-action:focus-visible {
+  outline: 2px solid #00adb5;
+  outline-offset: 2px;
+}
+
+.note-action--archive {
+  color: #00adb5;
+  background-color: rgba(0, 173, 181, 0.12);
+  border-color: rgba(0, 173, 181, 0.4);
+}
+
+.note-action--archive:hover {
+  background-color: rgba(0, 173, 181, 0.22);
+}
+
+.note-action--delete {
+  color: #ff8a9b;
+  background-color: rgba(224, 82, 99, 0.12);
+  border-color: rgba(224, 82, 99, 0.4);
+}
+
+.note-action--delete:hover {
+  background-color: rgba(224, 82, 99, 0.22);
+}
+
+@media (max-width: 600px) {
+  .note-item__actions {
+    flex-direction: column;
+  }
+
+  .note-action {
+    width: 100%;
+  }
+}
