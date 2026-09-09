@@ -4,6 +4,7 @@ Repositori ini merupakan showcase terpadu dan monorepo portofolio untuk seluruh 
 1. **Front-End Web untuk Pemula** (DOM Manipulation, Form Validation, & LocalStorage Persistence)
 2. **Fundamental Front-End Web Development** (Custom Elements / Web Components, ES6+ Modular, & Webpack Bundler)
 3. **Pengembangan Web Intermediate** (Single-Page Application / SPA, Progressive Web App / PWA, IndexedDB Offline Sync, & Push Notification)
+4. **Belajar Toolset untuk Pengembangan Front-End Web** (Lit Web Components v3, Modular Sass `@use`, Bootstrap 5 Component Customization, & Webpack 5)
 
 ---
 
@@ -32,6 +33,15 @@ front-end-engineer/
 │   ├── vite.config.js              # Modern tooling & build pipeline
 │   ├── package.json
 │   └── README.md
+│
+├── 04-frontend-toolset/            # Belajar Toolset untuk Pengembangan Front-End Web
+│   └── story-app/                  # Modern Story App (Lit v3, Sass @use, Bootstrap 5)
+│       ├── src/js/components/      # 5 Lit Components (Shadow DOM + Light DOM)
+│       ├── src/sass/               # Strict Sass Modular Architecture
+│       ├── screenshots/            # Private GitHub Repository Evidence
+│       ├── webpack.common.js
+│       ├── package.json
+│       └── README.md
 │
 └── README.md                       # Master Showcase & Technical Competency Matrix
 ```
@@ -62,6 +72,15 @@ front-end-engineer/
   * **IndexedDB & Background Sync**: Fitur penyimpanan cerita lokal (*saved stories*) serta sistem *outbox* otomatis yang mengirimkan postingan saat koneksi online kembali.
   * **Hardware & Web API**: Pemanfaatan Geolocation & Camera API (`getUserMedia` + Canvas) serta integrasi Web Push Notification via standar VAPID.
 
+### 4. [04-frontend-toolset](./04-frontend-toolset/story-app) — Story App (Bintang 5)
+* **Tech Stack**: Lit Web Components v3, Sass Modular (`@use`), Bootstrap 5, Webpack 5, Web Components Shadow DOM.
+* **Fokus Proyek & Kriteria Bintang 5**:
+  * **Arsitektur Web Components (Lit v3)**: Mengimplementasikan 5 Lit Components (`<app-bar>`, `<story-card>`, `<story-form>`, `<user-badge>`, `<footer-bar>`), dengan 2 komponen wajib mengaktifkan isolasi ketat **Shadow DOM** (`<user-badge>` dan `<footer-bar>`).
+  * **Modular Sass Berstandar Baru**: Penerapan arsitektur Sass modern bebas `@import` dengan `@use`, mixin, nesting, dan operator `&`.
+  * **Kustomisasi Bootstrap 5**: Override variabel Sass pada 5 komponen inti (Buttons, Cards, Navbar & Offcanvas, Forms, dan Badges/Alerts).
+  * **Lit Localization (i18n)**: Sistem multi-bahasa reaktif (Bahasa Indonesia & English).
+  * **Format Tanggal Human-Readable**: Konversi format tanggal ISO 8601 ke bahasa manusia menggunakan JavaScript native `Intl.DateTimeFormat`.
+
 ---
 
 ## 👤 Author
@@ -70,12 +89,3 @@ front-end-engineer/
 * **GitHub**: [@arighmt67-bit](https://github.com/arighmt67-bit)
 * **LinkedIn**: [Ari Rahmat Romadhon](https://www.linkedin.com/in/arirahmatr/)
 * **Platform**: Dicoding Indonesia - Front-End Web Developer Learning Path
-## 04 - Belajar Toolset untuk Pengembangan Front-End Web
-- **Project:** Story App (`04-frontend-toolset/story-app`)
-- **Tech Stack:** Lit Web Components (v3), Sass (Modular `@use`), Bootstrap 5, Webpack 5.
-- **5-Star Features:**
-  - 5 Bootstrap Components Customized via Sass Variables (Buttons, Cards, Navbar/Offcanvas, Forms, Badges/Alerts).
-  - 5 Lit Components (2 with strict Shadow DOM: `user-badge`, `footer-bar`; 3 with Light DOM for Bootstrap integration: `app-bar`, `story-card`, `story-form`).
-  - Modular Localization (i18n) supporting Bahasa Indonesia (ID) and English (EN).
-  - Human-readable date formatting using JavaScript native `Intl.DateTimeFormat`.
-  - Private GitHub Repository screenshot documented.
