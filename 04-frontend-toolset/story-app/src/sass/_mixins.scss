@@ -1,0 +1,38 @@
+// SCSS Mixins with nested selector and ampersand operator
+@use 'variables' as v;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin glassmorphism {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@mixin interactive-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 35px rgba(67, 97, 238, 0.15);
+
+    .story-card__img-wrapper img {
+      transform: scale(1.05);
+    }
+  }
+
+  &:active {
+    transform: translateY(-2px);
+  }
+}
+
+@mixin gradient-text {
+  background: linear-gradient(135deg, v.$story-brand-primary, v.$story-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

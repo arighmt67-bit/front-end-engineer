@@ -70,3 +70,12 @@ front-end-engineer/
 * **GitHub**: [@arighmt67-bit](https://github.com/arighmt67-bit)
 * **LinkedIn**: [Ari Rahmat Romadhon](https://www.linkedin.com/in/arirahmatr/)
 * **Platform**: Dicoding Indonesia - Front-End Web Developer Learning Path
+## 04 - Belajar Toolset untuk Pengembangan Front-End Web
+- **Project:** Story App (`04-frontend-toolset/story-app`)
+- **Tech Stack:** Lit Web Components (v3), Sass (Modular `@use`), Bootstrap 5, Webpack 5.
+- **5-Star Features:**
+  - 5 Bootstrap Components Customized via Sass Variables (Buttons, Cards, Navbar/Offcanvas, Forms, Badges/Alerts).
+  - 5 Lit Components (2 with strict Shadow DOM: `user-badge`, `footer-bar`; 3 with Light DOM for Bootstrap integration: `app-bar`, `story-card`, `story-form`).
+  - Modular Localization (i18n) supporting Bahasa Indonesia (ID) and English (EN).
+  - Human-readable date formatting using JavaScript native `Intl.DateTimeFormat`.
+  - Private GitHub Repository screenshot documented.

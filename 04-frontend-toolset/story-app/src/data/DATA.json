@@ -1,0 +1,42 @@
+{
+  "error": false,
+  "message": "Stories fetched successfully",
+  "listStory": [
+    {
+      "id": "story-FvU4u0Vp2S3PMsFg",
+      "name": "Dimas Maulana",
+      "description": "Menikmati matahari terbenam di pesisir pantai selatan sambil belajar Lit dan Sass modern.",
+      "photoUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop&q=80",
+      "createdAt": "2023-01-08T06:34:18.598Z",
+      "lat": -6.2,
+      "lon": 106.816666
+    },
+    {
+      "id": "story-abc123xyz456",
+      "name": "Ahmad Fajar",
+      "description": "Kopi pagi di sudut kota Bandung, ditemani udara sejuk dan kode yang rapi terstruktur.",
+      "photoUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&auto=format&fit=crop&q=80",
+      "createdAt": "2023-02-14T02:15:30.120Z",
+      "lat": -6.917464,
+      "lon": 107.619125
+    },
+    {
+      "id": "story-xyz789def012",
+      "name": "Nadia Safitri",
+      "description": "Perjalanan riset ke Yogyakarta, menjelajahi arsitektur kuno dan budaya yang lestari.",
+      "photoUrl": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&auto=format&fit=crop&q=80",
+      "createdAt": "2023-03-20T10:45:00.000Z",
+      "lat": -7.79558,
+      "lon": 110.36949
+    },
+    {
+      "id": "story-ijk345lmn678",
+      "name": "Budi Santoso",
+      "description": "Kolaborasi lintas tim di kantor baru. Membangun platform web yang tangguh dan mudah diakses.",
+      "photoUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=80",
+      "createdAt": "2023-04-05T14:20:10.500Z",
+      "lat": -6.17511,
+      "lon": 106.865036
+    }
+  ]
+}
