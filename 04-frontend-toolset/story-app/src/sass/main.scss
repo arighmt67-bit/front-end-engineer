@@ -28,6 +28,17 @@ main {
 .navbar-custom {
   @include m.glassmorphism;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+
+  .navbar-brand {
+    max-width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.offcanvas {
+  max-width: 85vw;
 }
 
 .story-card {
