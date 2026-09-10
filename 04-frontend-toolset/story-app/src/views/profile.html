@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Story App - Profil Pengembang</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  </head>
+  <body>
+    <!-- Lit Component: App Bar with Offcanvas Navigation -->
+    <app-bar activePage="profile"></app-bar>
+
+    <main class="py-5">
+      <div class="container py-4">
+        <!-- Header Section -->
+        <div class="text-center mb-5">
+          <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill mb-2 px-3 py-2 fw-semibold">
+            👨‍💻 Developer & Company Showcase
+          </span>
+          <h1 class="h2 fw-bold text-dark brand-gradient" data-i18n="profileTitle">
+            Profil Pengembang & Perusahaan
+          </h1>
+          <p class="text-secondary mx-auto" style="max-width: 600px;" data-i18n="profileSubtitle">
+            Informasi pengembang aplikasi dan standar teknologi yang diimplementasikan pada proyek Story App.
+          </p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+          <!-- Lead Developer Card -->
+          <div class="col-lg-6">
+            <div class="card h-100 border-0 shadow-sm rounded-4 p-4">
+              <div class="d-flex align-items-center gap-3 mb-4 border-bottom pb-4">
+                <user-badge name="Ari Rahmat Romadhon"></user-badge>
+                <div>
+                  <h4 class="fw-bold mb-1 text-dark">Ari Rahmat Romadhon</h4>
+                  <span class="badge bg-primary rounded-pill px-3 py-1">Front-End & Cloud Engineer</span>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <h6 class="fw-bold text-dark mb-2">Tentang Pengembang</h6>
+                <p class="text-secondary small line-height-base mb-0">
+                  Pengembang perangkat lunak yang berfokus pada arsitektur web modern, Web Components, dan otomasi cloud infrastructure. Berkomitmen menghadirkan solusi digital yang scalable, performant, dan berstandar industri tinggi.
+                </p>
+              </div>
+
+              <div class="mb-4">
+                <h6 class="fw-bold text-dark mb-2">Peran & Tanggung Jawab Proyek</h6>
+                <ul class="text-secondary small ps-3 mb-0">
+                  <li class="mb-1">Perancangan antarmuka visual responsif berbasis Bootstrap 5.3 & custom Sass.</li>
+                  <li class="mb-1">Pembangunan modular Web Components interaktif menggunakan library Lit.</li>
+                  <li class="mb-1">Implementasi sistem multi-bahasa terstandar melalui Lit Localization.</li>
+                  <li>Optimasi performa bundle dan asset pipeline melalui Webpack 5.</li>
+                </ul>
+              </div>
+
+              <div class="pt-3 border-top d-flex gap-2">
+                <a href="https://github.com/arighmt67-bit" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark rounded-pill px-3">
+                  <i class="bi bi-github me-1"></i> GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/arirahmatr/" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                  <i class="bi bi-linkedin me-1"></i> LinkedIn
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Company / Engineering Standards Card -->
+          <div class="col-lg-6">
+            <div class="card h-100 border-0 shadow-sm rounded-4 p-4">
+              <div class="d-flex align-items-center gap-3 mb-4 border-bottom pb-4">
+                <user-badge name="Story App Corp"></user-badge>
+                <div>
+                  <h4 class="fw-bold mb-1 text-dark">Story App Studio</h4>
+                  <span class="badge bg-info text-dark rounded-pill px-3 py-1">Digital Media & Publishing Platform</span>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <h6 class="fw-bold text-dark mb-2">Visi & Misi Perusahaan</h6>
+                <p class="text-secondary small line-height-base mb-0">
+                  Menyediakan ruang ekspresi digital yang inklusif, aman, dan berdaya bagi setiap individu di seluruh penjuru dunia untuk membagikan cerita otentik dan momen berharga mereka secara langsung.
+                </p>
+              </div>
+
+              <div class="mb-4">
+                <h6 class="fw-bold text-dark mb-2">Standar Arsitektur & Toolset</h6>
+                <div class="d-flex flex-wrap gap-2">
+                  <span class="badge bg-light text-primary border rounded-pill px-3 py-2">Lit v3 Components</span>
+                  <span class="badge bg-light text-primary border rounded-pill px-3 py-2">Bootstrap 5.3 Framework</span>
+                  <span class="badge bg-light text-primary border rounded-pill px-3 py-2">Modular Sass (@use)</span>
+                  <span class="badge bg-light text-primary border rounded-pill px-3 py-2">Webpack 5 Bundler</span>
+                  <span class="badge bg-light text-primary border rounded-pill px-3 py-2">Responsive Offcanvas</span>
+                  <span class="badge bg-light text-primary border rounded-pill px-3 py-2">Shadow DOM Encapsulation</span>
+                </div>
+              </div>
+
+              <div class="mt-auto pt-3 border-top text-end">
+                <a href="index.html" class="btn btn-primary btn-sm rounded-pill px-4">
+                  <i class="bi bi-arrow-left me-1"></i> Jelajahi Cerita
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Lit Component with Shadow DOM: Modern Footer -->
+    <footer-bar></footer-bar>
+  </body>
+</html>

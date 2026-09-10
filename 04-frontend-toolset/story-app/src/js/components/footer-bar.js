@@ -109,7 +109,7 @@ export class FooterBar extends LitElement {
           <div>
             <div class="heading">Pengembang</div>
             <p class="tagline">
-              Dikerjakan oleh <a href="https://github.com/arighmt67-bit" target="_blank" class="author-link">Ari Rahmat</a> sebagai proyek submission kelas Toolset Front-End Web.
+              Dikerjakan oleh <a href="profile.html" class="author-link">Ari Rahmat Romadhon</a>. Kunjungi <a href="profile.html" class="author-link">Halaman Profil</a> untuk detail pengembang dan visi perusahaan.
             </p>
           </div>
         </div>

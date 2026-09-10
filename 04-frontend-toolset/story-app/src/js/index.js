@@ -5,6 +5,7 @@ import * as bootstrap from 'bootstrap';
 // Import Lit Components
 import './components/app-bar.js';
 import './components/story-card.js';
+import './components/story-detail.js';
 import './components/story-form.js';
 import './components/user-badge.js';
 import './components/footer-bar.js';

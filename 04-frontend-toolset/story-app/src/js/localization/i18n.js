@@ -25,7 +25,13 @@ const translations = {
     languageSelect: 'Bahasa',
     emptyState: 'Belum ada cerita yang tersedia.',
     successAlert: 'Cerita berhasil ditambahkan ke daftar!',
-    previewText: 'Pratinjau Foto Momen'
+    previewText: 'Pratinjau Foto Momen',
+    developerProfile: 'Profil Developer',
+    profileTitle: 'Profil Pengembang & Perusahaan',
+    profileSubtitle: 'Informasi pengembang aplikasi dan standar teknologi yang diimplementasikan.',
+    storyDetail: 'Detail Cerita',
+    backToDashboard: 'Kembali ke Dasbor',
+    storyNotFound: 'Cerita tidak ditemukan atau tautan tidak valid.'
   },
   en: {
     appTitle: 'Story App',
@@ -52,7 +58,13 @@ const translations = {
     languageSelect: 'Language',
     emptyState: 'No stories available yet.',
     successAlert: 'Story successfully posted to list!',
-    previewText: 'Photo Preview'
+    previewText: 'Photo Preview',
+    developerProfile: 'Developer Profile',
+    profileTitle: 'Developer & Company Profile',
+    profileSubtitle: 'Information regarding the developer and modern engineering standards applied.',
+    storyDetail: 'Story Detail',
+    backToDashboard: 'Back to Dashboard',
+    storyNotFound: 'Story not found or invalid story link.'
   }
 };
 
