@@ -1,0 +1,102 @@
+// Main SCSS file using strict modular @use
+@use 'variables' as v;
+@use 'mixins' as m;
+
+// Bootstrap imported as allowed by criteria
+@import 'bootstrap/scss/bootstrap';
+
+// Custom Application Styles
+body {
+  background-color: v.$story-bg-soft;
+  color: v.$dark;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.brand-gradient {
+  @include m.gradient-text;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.navbar-custom {
+  @include m.glassmorphism;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+
+  .navbar-brand {
+    max-width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.offcanvas {
+  max-width: 85vw;
+}
+
+.story-card {
+  @include m.interactive-card;
+  overflow: hidden;
+  height: 100%;
+
+  .story-card__img-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+    background-color: #e9ecef;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .story-card__badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .story-card__body {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.form-card {
+  border-radius: 1.25rem;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+.image-preview-container {
+  width: 100%;
+  height: 260px;
+  border: 2px dashed #ced4da;
+  border-radius: 0.75rem;
+  @include m.flex-center;
+  background-color: #f8f9fa;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: v.$story-brand-primary;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

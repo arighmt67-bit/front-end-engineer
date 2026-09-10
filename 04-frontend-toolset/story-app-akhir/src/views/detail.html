@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Story App - Detail Cerita</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  </head>
+  <body>
+    <!-- Lit Component: App Bar with Sibling Offcanvas Menu & i18n -->
+    <app-bar activePage="dashboard"></app-bar>
+
+    <main class="py-5">
+      <div class="container py-4">
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="breadcrumb" class="mb-4">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none">Dasbor</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Detail Cerita</li>
+          </ol>
+        </nav>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <!-- Dedicated Lit Component for Single Story Detail with zero render loops -->
+            <story-detail></story-detail>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Lit Component with Shadow DOM: Modern Footer -->
+    <footer-bar></footer-bar>
+  </body>
+</html>
