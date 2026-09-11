@@ -1,7 +1,7 @@
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgpu';
 import { TENSORFLOW_CONFIG } from '../utils/config.js';
-import { validateModelMetadata, logError, isWebGPUSupported } from '../utils/common.js';
+import { validateModelMetadata, logError, checkWebGPUAvailability } from '../utils/common.js';
 
 export class DetectionService {
   constructor() {
@@ -11,26 +11,42 @@ export class DetectionService {
     this.backendName = null;
   }
 
-  // TODO [Basic] Muat model dan metadata secara bersamaan, lalu simpan ke instance
-  // TODO [Advance] Implementasikan strategi Backend Adaptive
+  // Muat model dan metadata secara bersamaan, lalu simpan ke instance
+  // Implementasikan strategi Backend Adaptive bertingkat: WebGPU -> WebGL -> CPU
   async loadModel() {
     try {
-      // Strategi backend adaptif: prioritas WebGPU jika tersedia, fallback ke WebGL / WASM / CPU
-      if (isWebGPUSupported()) {
+      const hasWebGPU = await checkWebGPUAvailability();
+      let configuredBackend = null;
+
+      if (hasWebGPU) {
         try {
           await tf.setBackend('webgpu');
-          this.backendName = 'webgpu';
+          await tf.ready();
+          configuredBackend = 'webgpu';
         } catch (gpuError) {
           console.warn('WebGPU gagal diinisialisasi, fallback ke webgl:', gpuError);
-          await tf.setBackend('webgl');
-          this.backendName = 'webgl';
         }
-      } else {
-        await tf.setBackend('webgl');
-        this.backendName = 'webgl';
+      }
+
+      if (!configuredBackend) {
+        try {
+          await tf.setBackend('webgl');
+          await tf.ready();
+          configuredBackend = 'webgl';
+        } catch (webglError) {
+          console.warn('WebGL gagal diinisialisasi, fallback ke cpu:', webglError);
+          try {
+            await tf.setBackend('cpu');
+            await tf.ready();
+            configuredBackend = 'cpu';
+          } catch (cpuError) {
+            console.warn('CPU backend fallback error:', cpuError);
+          }
+        }
       }
 
       await tf.ready();
+      this.backendName = tf.getBackend();
 
       const [metadata, model] = await Promise.all([
         fetch(this.config.metadataPath).then((r) => {
@@ -50,7 +66,7 @@ export class DetectionService {
       return {
         success: true,
         labels: this.labels,
-        backend: this.backendName || tf.getBackend()
+        backend: this.backendName
       };
     } catch (error) {
       logError('Gagal memuat model TensorFlow.js', error);
@@ -58,8 +74,8 @@ export class DetectionService {
     }
   }
 
-  // TODO [Basic] Lakukan prediksi pada elemen gambar yang diberikan dan kembalikan hasilnya
-  // [Advance] Manajemen memori konsisten menggunakan tf.tidy() dan dispose()
+  // Lakukan prediksi pada elemen gambar/canvas yang diberikan dan kembalikan hasilnya
+  // Manajemen memori konsisten menggunakan tf.tidy() dan dispose()
   async predict(imageElement) {
     if (!this.model) {
       throw new Error('Model belum dimuat. Panggil loadModel() terlebih dahulu.');
@@ -105,7 +121,7 @@ export class DetectionService {
     }
   }
 
-  // TODO [Basic] Periksa apakah model sudah dimuat dan siap digunakan
+  // Periksa apakah model sudah dimuat dan siap digunakan
   isLoaded() {
     return !!this.model && this.labels.length > 0;
   }

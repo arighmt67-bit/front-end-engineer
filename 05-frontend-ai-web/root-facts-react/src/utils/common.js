@@ -4,8 +4,27 @@ export const logError = (context, error) => {
   console.error(`❌ ${context}:`, error);
 };
 
+/**
+ * Memeriksa apakah WebGPU didukung oleh browser dan hardware.
+ * Pengecekan aman sinkron untuk ketersediaan objek gpu.
+ */
 export const isWebGPUSupported = () => {
-  return typeof navigator !== 'undefined' && 'gpu' in navigator;
+  return typeof navigator !== 'undefined' && 'gpu' in navigator && !!navigator.gpu;
+};
+
+/**
+ * Memverifikasi apakah WebGPU benar-benar dapat memperoleh GPUAdapter yang valid.
+ */
+export const checkWebGPUAvailability = async () => {
+  if (!isWebGPUSupported()) {
+    return false;
+  }
+  try {
+    const adapter = await navigator.gpu.requestAdapter();
+    return !!adapter;
+  } catch {
+    return false;
+  }
 };
 
 export const isMobileDevice = () => {

@@ -2,13 +2,22 @@ import { pipeline, env } from '@huggingface/transformers';
 import { TRANSFORMERS_CONFIG, TONE_CONFIG } from '../utils/config.js';
 import {
   createDelay,
-  isWebGPUSupported,
   logError,
+  checkWebGPUAvailability,
   createModelProgressCallback
 } from '../utils/common.js';
 
+// Pengaturan Transformers.js client-side
 env.allowLocalModels = false;
 env.useBrowserCache = true;
+
+// Optimasi backend WASM threading
+if (env.backends?.onnx?.wasm) {
+  env.backends.onnx.wasm.proxy = false;
+  if (typeof navigator !== 'undefined' && navigator.hardwareConcurrency) {
+    env.backends.onnx.wasm.numThreads = Math.min(navigator.hardwareConcurrency, 4);
+  }
+}
 
 export class RootFactsService {
   constructor(onProgress = null) {
@@ -21,22 +30,43 @@ export class RootFactsService {
     this.onProgress = onProgress;
   }
 
-  // TODO [Basic] Muat model dan inisialisasi pipeline text2text-generation
-  // TODO [Advance] Implementasikan strategi Backend Adaptive
+  // Muat model dan inisialisasi pipeline text2text-generation
+  // Implementasikan strategi Backend Adaptive: WebGPU -> Fallback WASM
   async loadModel() {
     try {
-      // Backend adaptif: WebGPU jika didukung browser/GPU, fallback otomatis ke WASM
-      const device = isWebGPUSupported() ? 'webgpu' : 'wasm';
+      const hasWebGPU = await checkWebGPUAvailability();
+      let device = 'wasm';
 
-      this.generator = await pipeline(
-        'text2text-generation',
-        this.config.modelName,
-        {
-          dtype: 'q4',
-          device,
-          progress_callback: createModelProgressCallback(this.onProgress)
+      if (hasWebGPU) {
+        try {
+          this.generator = await pipeline(
+            'text2text-generation',
+            this.config.modelName,
+            {
+              dtype: 'q4',
+              device: 'webgpu',
+              progress_callback: createModelProgressCallback(this.onProgress)
+            }
+          );
+          device = 'webgpu';
+        } catch (gpuPipelineError) {
+          console.warn('Pipeline Transformers.js gagal pada WebGPU, fallback ke wasm:', gpuPipelineError);
+          this.generator = null;
         }
-      );
+      }
+
+      if (!this.generator) {
+        this.generator = await pipeline(
+          'text2text-generation',
+          this.config.modelName,
+          {
+            dtype: 'q4',
+            device: 'wasm',
+            progress_callback: createModelProgressCallback(this.onProgress)
+          }
+        );
+        device = 'wasm';
+      }
 
       this.isModelLoaded = true;
       this.currentBackend = device;
@@ -52,16 +82,14 @@ export class RootFactsService {
     }
   }
 
-  // TODO [Advance] Konfigurasi tone fakta yang dihasilkan
+  // Konfigurasi tone fakta yang dihasilkan
   setTone(tone) {
     if (TONE_CONFIG.availableTones.some((t) => t.value === tone)) {
       this.currentTone = tone;
     }
   }
 
-  // TODO [Basic] Lakukan prediksi pada elemen gambar yang diberikan dan kembalikan hasilnya
-  // TODO [Skilled] Konfigurasikan parameter generasi berdasarkan kebutuhan
-  // TODO [Advance] Implemenasikan parameter tone untuk mengatur nada fakta yang dihasilkan
+  // Lakukan generasi konten fakta sayuran dengan prompt tone dinamis
   async generateFacts(vegetableName) {
     if (!this.isModelLoaded || this.isGenerating) {
       throw new Error('Model belum siap atau sedang menghasilkan konten');
@@ -105,7 +133,7 @@ export class RootFactsService {
     }
   }
 
-  // TODO [Basic] Periksa apakah model sudah dimuat dan siap digunakan
+  // Periksa apakah model sudah dimuat dan siap digunakan
   isReady() {
     return this.isModelLoaded && !this.isGenerating;
   }
