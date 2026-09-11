@@ -1,1 +1,1 @@
-APP_URL=
+APP_URL=https://rootfacts-arirahmatr.netlify.app/
