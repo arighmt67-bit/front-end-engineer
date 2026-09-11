@@ -1,0 +1,29 @@
+{
+  "name": "rootfacts-react",
+  "version": "1.0.0",
+  "description": "RootFacts - AI Plant/Vegetable Fun Facts (React + Vite)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^3.8.1",
+    "@tensorflow/tfjs": "^4.22.0",
+    "@tensorflow/tfjs-backend-webgpu": "^4.22.0",
+    "lucide-react": "^0.563.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.26.8",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.19.0",
+    "eslint-config-dicodingacademy": "^0.9.5",
+    "eslint-plugin-react": "^7.37.4",
+    "vite": "^6.0.7",
+    "vite-plugin-pwa": "^1.0.0"
+  }
+}

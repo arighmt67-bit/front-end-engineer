@@ -5,6 +5,7 @@ Repositori ini merupakan showcase terpadu dan monorepo portofolio untuk seluruh 
 2. **Fundamental Front-End Web Development** (Custom Elements / Web Components, ES6+ Modular, & Webpack Bundler)
 3. **Pengembangan Web Intermediate** (Single-Page Application / SPA, Progressive Web App / PWA, IndexedDB Offline Sync, & Push Notification)
 4. **Belajar Toolset untuk Pengembangan Front-End Web** (Lit Web Components v3, Modular Sass `@use`, Bootstrap 5 Component Customization, & Webpack 5)
+5. **Belajar Penerapan AI di Aplikasi Web** (Client-Side AI Inference, TensorFlow.js WebGPU/WebGL Adaptive Backend, HuggingFace Transformers.js SLM Local Generation, & Offline-First AI PWA)
 
 ---
 
@@ -40,6 +41,16 @@ front-end-engineer/
 │       ├── src/sass/               # Strict Sass Modular Architecture
 │       ├── screenshots/            # Private GitHub Repository Evidence
 │       ├── webpack.common.js
+│       ├── package.json
+│       └── README.md
+│
+├── 05-frontend-ai-web/             # Belajar Penerapan AI di Aplikasi Web (Bintang 5)
+│   └── root-facts-react/           # RootFacts AI Assistant (React 19 + TensorFlow.js + Transformers.js)
+│       ├── src/services/           # DetectionService (WebGPU), RootFactsService (SLM), CameraService
+│       ├── src/components/         # CameraSection, InfoPanel, Header
+│       ├── public/model/           # Pre-trained Vision Model (.json & .bin)
+│       ├── vite.config.js          # VitePWA with AI weights precaching (50MB cap)
+│       ├── eslint.config.mjs       # ESLint Dicoding Style Guide (0 warning, 0 error)
 │       ├── package.json
 │       └── README.md
 │
@@ -80,6 +91,16 @@ front-end-engineer/
   * **Kustomisasi Bootstrap 5**: Override variabel Sass pada 5 komponen inti (Buttons, Cards, Navbar & Offcanvas, Forms, dan Badges/Alerts).
   * **Lit Localization (i18n)**: Sistem multi-bahasa reaktif (Bahasa Indonesia & English).
   * **Format Tanggal Human-Readable**: Konversi format tanggal ISO 8601 ke bahasa manusia menggunakan JavaScript native `Intl.DateTimeFormat`.
+
+### 5. [05-frontend-ai-web](./05-frontend-ai-web/root-facts-react) — RootFacts AI App (Bintang 5)
+* **Tech Stack**: React 19, Vite, TensorFlow.js (`tfjs-backend-webgpu`), HuggingFace Transformers.js, Workbox PWA, Lucide React.
+* **Fokus Proyek & Kriteria Bintang 5**:
+  * **Computer Vision Adaptif (TensorFlow.js)**: Identifikasi objek sayuran real-time dari stream kamera dengan akselerasi **WebGPU** adaptif (fallback otomatis ke WebGL).
+  * **Manajemen Memori Bersih**: Pemanfaatan `tf.tidy()` dan pembersihan eksplisit `.dispose()` pada tensor untuk mencegah kebocoran memori pada browser.
+  * **Generative AI Lokal (Transformers.js)**: Generasi fakta menarik dinamis menggunakan Small Language Model (SLM) `Xenova/LaMini-Flan-T5-77M` (kuantisasi 4-bit, < 300MB) langsung di sisi klien dengan backend hardware adaptif (WebGPU/WASM).
+  * **Persona Dinamis (Tone Selector)**: Penyesuaian gaya bahasa teks AI secara interaktif (*Normal, Lucu, Profesional, Santai*).
+  * **Fitur Clipboard**: Salin teks hasil generasi AI langsung ke papan klip dengan fallback API teruji.
+  * **PWA & Offline AI Model**: Web App Manifest lengkap, installable di desktop/mobile, serta *precaching* model AI (`model.json`, `metadata.json`, `weights.bin`) di Service Worker sehingga deteksi Computer Vision tetap berfungsi 100% tanpa internet.
 
 ---
 
