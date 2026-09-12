@@ -62,6 +62,30 @@ function InfoPanel({ appState, detectionResult, funFactData, error, onCopyFact }
         );
       }
 
+      if (typeof funFactData === 'object' && funFactData !== null) {
+        return (
+          <div className="fun-fact-detail">
+            <p className="fun-fact-statement">{funFactData.fact}</p>
+            {funFactData.source && (
+              <div style={{
+                marginTop: '0.5rem',
+                fontSize: '0.75rem',
+                color: '#6b7280',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.35rem'
+              }}>
+                <span style={{ fontWeight: 600, color: '#059669' }}>✓ Grounded Source:</span>
+                <span>{funFactData.source}</span>
+                {funFactData.scientificName && (
+                  <span style={{ fontStyle: 'italic' }}>({funFactData.scientificName})</span>
+                )}
+              </div>
+            )}
+          </div>
+        );
+      }
+
       return funFactData;
     };
 

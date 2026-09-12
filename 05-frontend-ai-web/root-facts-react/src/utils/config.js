@@ -1,7 +1,7 @@
 export const APP_CONFIG = {
   detectionConfidenceThreshold: 70,
   analyzingDelay: 2000,
-  factsGenerationDelay: 2000,
+  factsGenerationDelay: 1500,
   detectionRetryInterval: 100,
   cameraStartDelay: 500
 };
@@ -16,10 +16,10 @@ export const TENSORFLOW_CONFIG = {
 
 export const TRANSFORMERS_CONFIG = {
   modelName: 'Xenova/LaMini-Flan-T5-77M',
-  maxTokens: 100,
-  temperature: 0.3,
-  topP: 0.8,
-  generationDelay: 500
+  maxTokens: 80,
+  temperature: 0.1, // Turunkan dari 0.3 ke 0.1 agar tidak berhalusinasi / random
+  topP: 0.7,
+  generationDelay: 300
 };
 
 export const TONE_CONFIG = {
@@ -31,14 +31,22 @@ export const TONE_CONFIG = {
   ],
   defaultTone: 'normal',
   prompts: {
-    normal: (vegetable) =>
-      `Tell an interesting and educational fun fact about ${vegetable} in 1-2 concise sentences.`,
-    funny: (vegetable) =>
-      `Tell a funny, humorous, and entertaining joke or fun fact about ${vegetable} in 1-2 sentences.`,
-    professional: (vegetable) =>
-      `Provide a professional, scientifically accurate nutritional fact about ${vegetable} in 1-2 formal sentences.`,
-    casual: (vegetable) =>
-      `Share a casual, cool, and easy-to-understand fun fact about ${vegetable} like talking to a friend.`
+    normal: (vegetable, context = '') =>
+      context
+        ? `Context: ${context}\nQuestion: What is a key nutritional benefit of ${vegetable}?\nAnswer in one concise sentence:`
+        : `State a factual nutritional benefit about ${vegetable} in 1 concise sentence:`,
+    funny: (vegetable, context = '') =>
+      context
+        ? `Context: ${context}\nTell a fun and playful fact about ${vegetable} in 1 friendly sentence:`
+        : `Tell a fun and playful fact about ${vegetable} in 1 friendly sentence:`,
+    professional: (vegetable, context = '') =>
+      context
+        ? `Scientific Data: ${context}\nProvide a concise, scientifically accurate statement regarding the nutritional properties of ${vegetable}:`
+        : `Provide a concise, scientifically accurate statement regarding the nutritional properties of ${vegetable}:`,
+    casual: (vegetable, context = '') =>
+      context
+        ? `Fact: ${context}\nShare this cool fact about ${vegetable} like chatting with a friend in one sentence:`
+        : `Share a cool fact about ${vegetable} like chatting with a friend in one sentence:`
   }
 };
 

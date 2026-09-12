@@ -6,6 +6,7 @@ import {
   checkWebGPUAvailability,
   createModelProgressCallback
 } from '../utils/common.js';
+import { getGroundedSource } from '../utils/groundedSources.js';
 
 // Pengaturan Transformers.js client-side
 env.allowLocalModels = false;
@@ -89,7 +90,7 @@ export class RootFactsService {
     }
   }
 
-  // Lakukan generasi konten fakta sayuran dengan prompt tone dinamis
+  // Lakukan generasi konten fakta sayuran dengan prompt tone dinamis dan Grounded Sources
   async generateFacts(vegetableName) {
     if (!this.isModelLoaded || this.isGenerating) {
       throw new Error('Model belum siap atau sedang menghasilkan konten');
@@ -101,29 +102,45 @@ export class RootFactsService {
 
     // Pembersihan input untuk sanitasi prompt
     const cleanedName = vegetableName.trim().slice(0, 50).replace(/[^\w\s-]/gi, '');
+    const grounded = getGroundedSource(cleanedName);
 
     try {
       this.isGenerating = true;
 
       await createDelay(this.config.generationDelay);
 
+      // Gunakan Grounded Sources context agar model terikat pada fakta riil
+      const groundedContext = grounded
+        ? `${grounded.nutritionHighlights} ${grounded.funFactSeed}`
+        : '';
+
       const tonePromptBuilder = TONE_CONFIG.prompts[this.currentTone] || TONE_CONFIG.prompts.normal;
-      const prompt = tonePromptBuilder(cleanedName);
+      const prompt = tonePromptBuilder(cleanedName, groundedContext);
 
       const result = await this.generator(prompt, {
         max_new_tokens: this.config.maxTokens,
         temperature: this.config.temperature,
-        do_sample: true,
+        do_sample: false, // Deterministic greedy search untuk mencegah halusinasi / teks acak
         top_p: this.config.topP
       });
 
-      const generatedText = result[0]?.generated_text || '';
+      let generatedText = result[0]?.generated_text?.trim() || '';
+
+      // Fallback cerdas jika model SLM menghasilkan output terlalu pendek/aneh
+      if (!generatedText || generatedText.length < 15) {
+        generatedText = grounded?.funFactSeed || `${cleanedName} kaya akan serat dan mikronutrien penting untuk kesehatan.`;
+      }
 
       return {
-        fact: generatedText.trim(),
+        fact: generatedText,
         vegetable: cleanedName,
         tone: this.currentTone,
-        backend: this.currentBackend
+        backend: this.currentBackend,
+        groundedSource: grounded ? {
+          source: grounded.source,
+          category: grounded.category,
+          scientificName: grounded.scientificName
+        } : null
       };
     } catch (error) {
       logError('Kesalahan menghasilkan fakta sayuran', error);

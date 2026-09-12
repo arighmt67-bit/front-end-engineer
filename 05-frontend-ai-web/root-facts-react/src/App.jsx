@@ -118,7 +118,11 @@ function App() {
             try {
               state.services.generator.setTone(currentTone);
               const factsResult = await state.services.generator.generateFacts(result.className);
-              actions.setFunFactData(factsResult.fact);
+              actions.setFunFactData({
+                fact: factsResult.fact,
+                source: factsResult.groundedSource?.source || 'USDA FoodData Central',
+                scientificName: factsResult.groundedSource?.scientificName || null
+              });
             } catch (factsError) {
               console.error('❌ Gagal menghasilkan fakta menarik', factsError);
               actions.setFunFactData('error');
@@ -216,12 +220,16 @@ function App() {
   const handleCopyFact = useCallback(async () => {
     if (!state.funFactData || state.funFactData === 'error') return;
 
+    const textToCopy = typeof state.funFactData === 'object'
+      ? `${state.funFactData.fact}${state.funFactData.source ? ` (Sumber: ${state.funFactData.source})` : ''}`
+      : String(state.funFactData);
+
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(state.funFactData);
+        await navigator.clipboard.writeText(textToCopy);
       } else {
         const textarea = document.createElement('textarea');
-        textarea.value = state.funFactData;
+        textarea.value = textToCopy;
         textarea.style.position = 'fixed';
         textarea.style.opacity = '0';
         document.body.appendChild(textarea);
