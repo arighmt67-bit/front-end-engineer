@@ -15,7 +15,6 @@ function App() {
   const isRunningRef = useRef(false);
   const [currentTone, setCurrentTone] = useState('normal');
 
-  // TODO [Basic] Inisialisasi layanan deteksi, kamera, dan generator fakta saat aplikasi dimuat
   useEffect(() => {
     let isMounted = true;
 
@@ -60,7 +59,6 @@ function App() {
     };
   }, [actions]);
 
-  // TODO [Basic] Bersihkan sumber daya saat komponen ditinggalkan
   useEffect(() => {
     return () => {
       if (detectionCleanupRef.current) {
@@ -72,7 +70,6 @@ function App() {
     };
   }, [state.services.camera]);
 
-  // TODO [Basic] Fungsi untuk memulai loop deteksi
   const startDetection = useCallback(() => {
     let animationId = null;
     let isActive = true;
@@ -188,7 +185,6 @@ function App() {
     actions.resetResults();
   }, [actions, state.services.camera]);
 
-  // TODO [Basic] Fungsi untuk memulai dan menghentikan kamera
   const handleToggleCamera = useCallback(async () => {
     if (!state.services.detector?.isLoaded()) {
       actions.setError('Model deteksi AI belum siap. Harap tunggu inisialisasi selesai.');
@@ -208,7 +204,6 @@ function App() {
     }
   }, [state.services.detector, actions, startCamera, stopCamera]);
 
-  // TODO [Advance] Fungsi untuk mengubah nada fakta yang dihasilkan
   const handleToneChange = useCallback((tone) => {
     setCurrentTone(tone);
     if (state.services.generator) {
@@ -216,7 +211,6 @@ function App() {
     }
   }, [state.services.generator]);
 
-  // TODO [Skilled] Fungsi untuk menyalin fakta ke clipboard
   const handleCopyFact = useCallback(async () => {
     if (!state.funFactData || state.funFactData === 'error') return;
 

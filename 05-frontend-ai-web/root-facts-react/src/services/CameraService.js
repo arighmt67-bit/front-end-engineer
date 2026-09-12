@@ -24,8 +24,6 @@ export class CameraService {
     this.canvas = canvasElement;
   }
 
-  // TODO [Basic] Tambahkan konfigurasi kamera untuk mendapatkan daftar perangkat input video
-  // TODO [Basic] Dapatkan constraints kamera berdasarkan konfigurasi dan kamera yang dipilih
   async loadCameras() {
     try {
       if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
@@ -42,7 +40,6 @@ export class CameraService {
     }
   }
 
-  // TODO [Basic] Memulai kamera dengan perangkat yang dipilih dan menampilkan pada elemen video
   async startCamera(selectedCameraId = null) {
     try {
       this.stopCamera();
@@ -78,7 +75,6 @@ export class CameraService {
     }
   }
 
-  // TODO [Basic] Menghentikan siaran kamera dan membersihkan sumber daya
   stopCamera() {
     if (this.stream) {
       this.stream.getTracks().forEach((track) => track.stop());
@@ -90,7 +86,6 @@ export class CameraService {
     }
   }
 
-  // TODO [Skilled] Implementasikan metode untuk mengatur FPS kamera
   setFPS(fps) {
     const numericFps = Number(fps);
     if (numericFps >= this.config.fpsRange.min && numericFps <= this.config.fpsRange.max) {
@@ -98,12 +93,10 @@ export class CameraService {
     }
   }
 
-  // TODO [Basic] Periksa apakah kamera sedang aktif
   isActive() {
     return !!(this.stream && this.stream.active && this.stream.getVideoTracks().length > 0);
   }
 
-  // TODO [Basic] Periksa apakah elemen video siap untuk digunakan
   isReady() {
     return !!(
       this.video &&
