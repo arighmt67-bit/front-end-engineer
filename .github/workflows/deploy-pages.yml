@@ -1,0 +1,90 @@
+name: Front-End Monorepo CI & GitHub Pages Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Prepare Aggregated Pages Directory
+        run: |
+          mkdir -p public-pages/pemula
+          mkdir -p public-pages/fundamental
+          mkdir -p public-pages/intermediate
+          mkdir -p public-pages/toolset
+          mkdir -p public-pages/ai-web
+          cp portal.html public-pages/index.html
+
+      # 01-frontend-pemula (Pure Static HTML/CSS/JS)
+      - name: Deploy Track 01 (Pemula)
+        run: |
+          cp -r 01-frontend-pemula/* public-pages/pemula/
+
+      # 02-frontend-fundamental (Webpack 5 Build)
+      - name: Build Track 02 (Fundamental)
+        run: |
+          cd 02-frontend-fundamental
+          npm install --package-lock=false
+          npm run build
+          cp -r dist/* ../public-pages/fundamental/
+
+      # 03-frontend-intermediate (Vite Build)
+      - name: Build Track 03 (Intermediate)
+        run: |
+          cd 03-frontend-intermediate
+          npm install --package-lock=false
+          npx vite build --base=./
+          cp -r dist/* ../public-pages/intermediate/
+
+      # 04-frontend-toolset (Webpack 5 Build)
+      - name: Build Track 04 (Toolset - Story App)
+        run: |
+          cd 04-frontend-toolset/story-app-akhir
+          npm install --package-lock=false
+          npm run build
+          cp -r dist/* ../../public-pages/toolset/
+
+      # 05-frontend-ai-web (React 18 + Vite PWA Build)
+      - name: Build Track 05 (AI Web - RootFacts)
+        run: |
+          cd 05-frontend-ai-web/root-facts-react
+          npm install --package-lock=false
+          npx vite build --base=./
+          cp -r dist/* ../../public-pages/ai-web/
+
+      - name: Upload GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public-pages
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

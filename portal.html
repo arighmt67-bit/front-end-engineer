@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Front-End Engineering Portfolio Showcase | Ari Rahmat Romadhon</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --accent: #38bdf8;
+      --btn-bg: #2563eb;
+      --btn-hover: #1d4ed8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background-color: var(--bg); color: var(--text-main); line-height: 1.6; padding: 2.5rem 1rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
+    .container { max-width: 1100px; margin: 0 auto; width: 100%; }
+    header { text-align: center; margin-bottom: 3rem; }
+    .header-badge { display: inline-block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); background: rgba(56, 189, 248, 0.1); padding: 0.35rem 0.9rem; border-radius: 9999px; border: 1px solid rgba(56, 189, 248, 0.2); margin-bottom: 1rem; }
+    h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 0.75rem; color: #ffffff; }
+    header p { color: var(--text-muted); font-size: 1.15rem; max-width: 750px; margin: 0 auto 1.5rem; }
+    .header-links { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+    .link-pill { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.875rem; font-weight: 600; color: #e2e8f0; background: #1f2937; padding: 0.4rem 1rem; border-radius: 6px; text-decoration: none; border: 1px solid #374151; transition: all 0.2s ease; }
+    .link-pill:hover { background: #374151; border-color: var(--accent); color: #ffffff; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem; }
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; position: relative; overflow: hidden; }
+    .card:hover { transform: translateY(-4px); border-color: #3b82f6; box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.5); }
+    .track-badge { font-size: 0.75rem; font-weight: 700; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem; display: block; }
+    .card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; color: #ffffff; }
+    .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.25rem; flex-grow: 1; }
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.5rem; }
+    .tech-pill { font-size: 0.75rem; font-weight: 500; background: #1f2937; color: #93c5fd; padding: 0.25rem 0.6rem; border-radius: 4px; border: 1px solid #2d3748; }
+    .action-btn { display: block; text-align: center; background: var(--btn-bg); color: #ffffff; text-decoration: none; font-weight: 600; font-size: 0.95rem; padding: 0.75rem 1.25rem; border-radius: 8px; transition: background-color 0.2s ease; }
+    .action-btn:hover { background: var(--btn-hover); }
+    footer { text-align: center; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--card-border); color: var(--text-muted); font-size: 0.9rem; }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-badge">Automated CI/CD Portfolio</div>
+      <h1>Front-End Engineering Showcase</h1>
+      <p>Kompilasi arsitektur antarmuka web modern dari dasar hingga enterprise-ready: Vanilla DOM, Custom Elements, Progressive Web Apps, Lit Components, dan In-Browser AI.</p>
+      <div class="header-links">
+        <a class="link-pill" href="https://github.com/arighmt67-bit/front-end-engineer" target="_blank">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          Repository Monorepo
+        </a>
+        <a class="link-pill" href="https://github.com/arighmt67-bit" target="_blank">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+          arighmt67-bit
+        </a>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- 01 Pemula -->
+      <div class="card">
+        <div>
+          <span class="track-badge">Track 01 • Pemula</span>
+          <h3>Bookshelf App</h3>
+          <p>Aplikasi rak buku interaktif dengan manipulasi DOM murni, form handling, validasi input, custom event system, dan penyimpanan lokal (LocalStorage).</p>
+          <div class="tech-stack">
+            <span class="tech-pill">Semantic HTML5</span>
+            <span class="tech-pill">Custom CSS3</span>
+            <span class="tech-pill">Vanilla JS</span>
+            <span class="tech-pill">Web Storage API</span>
+          </div>
+        </div>
+        <a class="action-btn" href="./pemula/">Buka Live Demo →</a>
+      </div>
+
+      <!-- 02 Fundamental -->
+      <div class="card">
+        <div>
+          <span class="track-badge">Track 02 • Fundamental</span>
+          <h3>Notes App (Web Components)</h3>
+          <p>Aplikasi catatan modular memanfaatkan native Web Components (Custom Elements & Shadow DOM), modular ES6+, REST API integration, dan Webpack 5 production bundler.</p>
+          <div class="tech-stack">
+            <span class="tech-pill">Custom Elements</span>
+            <span class="tech-pill">Shadow DOM</span>
+            <span class="tech-pill">Webpack 5</span>
+            <span class="tech-pill">REST API</span>
+          </div>
+        </div>
+        <a class="action-btn" href="./fundamental/">Buka Live Demo →</a>
+      </div>
+
+      <!-- 03 Intermediate -->
+      <div class="card">
+        <div>
+          <span class="track-badge">Track 03 • Intermediate</span>
+          <h3>Restaurant & Story SPA / PWA</h3>
+          <p>Aplikasi Single Page Architecture dengan client-side routing, View Transitions API, integrasi peta Leaflet, persistensi offline IndexedDB, dan Service Worker cache.</p>
+          <div class="tech-stack">
+            <span class="tech-pill">Vite</span>
+            <span class="tech-pill">PWA / Service Worker</span>
+            <span class="tech-pill">IndexedDB</span>
+            <span class="tech-pill">Leaflet Map</span>
+          </div>
+        </div>
+        <a class="action-btn" href="./intermediate/">Buka Live Demo →</a>
+      </div>
+
+      <!-- 04 Toolset -->
+      <div class="card">
+        <div>
+          <span class="track-badge">Track 04 • Toolset</span>
+          <h3>Story App (Lit v3 & Bootstrap)</h3>
+          <p>Implementasi arsitektur enterprise-level menggunakan Lit Web Components v3, Sass modern (@use modular architecture), Bootstrap 5 customization, dan Webpack 5.</p>
+          <div class="tech-stack">
+            <span class="tech-pill">Lit v3</span>
+            <span class="tech-pill">Bootstrap 5</span>
+            <span class="tech-pill">Sass (@use)</span>
+            <span class="tech-pill">Axios</span>
+          </div>
+        </div>
+        <a class="action-btn" href="./toolset/">Buka Live Demo →</a>
+      </div>
+
+      <!-- 05 AI Web -->
+      <div class="card">
+        <div>
+          <span class="track-badge">Track 05 • AI Web</span>
+          <h3>RootFacts (Client-Side AI)</h3>
+          <p>In-browser AI execution dengan React 18, Vite PWA, TensorFlow.js berarsitektur adaptif (WebGPU/WebGL), dan HuggingFace Transformers.js SLM generation langsung di browser.</p>
+          <div class="tech-stack">
+            <span class="tech-pill">React 18</span>
+            <span class="tech-pill">TensorFlow.js (WebGPU)</span>
+            <span class="tech-pill">Transformers.js</span>
+            <span class="tech-pill">Vite PWA</span>
+          </div>
+        </div>
+        <a class="action-btn" href="./ai-web/">Buka Live Demo →</a>
+      </div>
+    </div>
+
+    <footer>
+      <p>Continuous Integration & Deployment via GitHub Actions • Repositori: <a href="https://github.com/arighmt67-bit/front-end-engineer">arighmt67-bit/front-end-engineer</a></p>
+    </footer>
+  </div>
+</body>
+</html>

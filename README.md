@@ -1,5 +1,11 @@
 # Front-End Web Engineer Portfolio Showcase
 
+[![Front-End Monorepo CI & Pages Deploy](https://github.com/arighmt67-bit/front-end-engineer/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/arighmt67-bit/front-end-engineer/actions/workflows/deploy-pages.yml)
+[![Live Demo Portal](https://img.shields.io/badge/Live_Demo-GitHub_Pages-2563eb?logo=github)](https://arighmt67-bit.github.io/front-end-engineer/)
+
+> 🌐 **Live Interactive Showcase Portal**: [https://arighmt67-bit.github.io/front-end-engineer/](https://arighmt67-bit.github.io/front-end-engineer/)  
+> Seluruh submission antarmuka web di-build dan di-deploy secara otomatis via GitHub Actions CI/CD.
+
 Repositori ini merupakan showcase terpadu dan monorepo portofolio untuk seluruh proyek submission pada **Dicoding Front-End Web Developer Learning Path**, mencakup evolusi pengembangan antarmuka web modern dari dasar hingga level enterprise-ready:
 1. **Front-End Web untuk Pemula** (DOM Manipulation, Form Validation, & LocalStorage Persistence)
 2. **Fundamental Front-End Web Development** (Custom Elements / Web Components, ES6+ Modular, & Webpack Bundler)
