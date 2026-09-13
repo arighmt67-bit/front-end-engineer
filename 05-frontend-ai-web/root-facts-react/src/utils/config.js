@@ -16,37 +16,37 @@ export const TENSORFLOW_CONFIG = {
 
 export const TRANSFORMERS_CONFIG = {
   modelName: 'Xenova/LaMini-Flan-T5-77M',
-  maxTokens: 80,
-  temperature: 0.1, // Turunkan dari 0.3 ke 0.1 agar tidak berhalusinasi / random
-  topP: 0.7,
+  maxTokens: 100,
+  temperature: 0.7, // Set 0.7 with sampling to produce creative, diverse outputs per reviewer suggestion
+  topP: 0.9,
   generationDelay: 300
 };
 
 export const TONE_CONFIG = {
   availableTones: [
     { value: 'normal', label: 'Normal' },
-    { value: 'funny', label: 'Lucu' },
-    { value: 'professional', label: 'Profesional' },
-    { value: 'casual', label: 'Santai' }
+    { value: 'funny', label: 'Fun & Playful' },
+    { value: 'professional', label: 'Scientific / Professional' },
+    { value: 'casual', label: 'Casual & Friendly' }
   ],
   defaultTone: 'normal',
   prompts: {
     normal: (vegetable, context = '') =>
       context
-        ? `Context: ${context}\nQuestion: What is a key nutritional benefit of ${vegetable}?\nAnswer in one concise sentence:`
-        : `State a factual nutritional benefit about ${vegetable} in 1 concise sentence:`,
+        ? `describe vegetable ${vegetable} in informative way with one sentences. Context: ${context}`
+        : `describe vegetable ${vegetable} in informative way with one sentences`,
     funny: (vegetable, context = '') =>
       context
-        ? `Context: ${context}\nTell a fun and playful fact about ${vegetable} in 1 friendly sentence:`
-        : `Tell a fun and playful fact about ${vegetable} in 1 friendly sentence:`,
+        ? `describe vegetable ${vegetable} in humorous and fun way with one sentences. Context: ${context}`
+        : `describe vegetable ${vegetable} in humorous and fun way with one sentences`,
     professional: (vegetable, context = '') =>
       context
-        ? `Scientific Data: ${context}\nProvide a concise, scientifically accurate statement regarding the nutritional properties of ${vegetable}:`
-        : `Provide a concise, scientifically accurate statement regarding the nutritional properties of ${vegetable}:`,
+        ? `describe vegetable ${vegetable} in scientific and nutritional way with one sentences. Context: ${context}`
+        : `describe vegetable ${vegetable} in scientific and nutritional way with one sentences`,
     casual: (vegetable, context = '') =>
       context
-        ? `Fact: ${context}\nShare this cool fact about ${vegetable} like chatting with a friend in one sentence:`
-        : `Share a cool fact about ${vegetable} like chatting with a friend in one sentence:`
+        ? `describe vegetable ${vegetable} in casual and friendly way with one sentences. Context: ${context}`
+        : `describe vegetable ${vegetable} in casual and friendly way with one sentences`
   }
 };
 

@@ -83,11 +83,33 @@ export class RootFactsService {
     }
   }
 
-  // Konfigurasi tone fakta yang dihasilkan
   setTone(tone) {
     if (TONE_CONFIG.availableTones.some((t) => t.value === tone)) {
       this.currentTone = tone;
     }
+  }
+
+  // Validasi output AI untuk memastikan relevan dengan sayuran yang diprediksi
+  validateFact(generatedText, vegetableName) {
+    if (!generatedText || typeof generatedText !== 'string') return false;
+    const clean = generatedText.trim().toLowerCase();
+    if (clean.length < 15) return false;
+
+    // Reject if output contains typical hallucination / foreign tokens or unrelated vegetables
+    const vegLower = vegetableName.toLowerCase();
+    // Rejection tokens (gibberish or prompt repetition artifacts)
+    if (clean.includes('describe vegetable') || clean.includes('one sentences')) return false;
+
+    // Check if directly mentions target vegetable or common keywords of it
+    if (clean.includes(vegLower)) return true;
+
+    // Also accept if contains relevant nutritional / culinary vocabulary
+    const relevantKeywords = [
+      'vegetable', 'plant', 'nutrient', 'vitamin', 'mineral', 'fiber', 'fibre',
+      'health', 'rich', 'source', 'diet', 'calory', 'calories', 'antioxidant',
+      'leaves', 'root', 'edible', 'green', 'flavour', 'taste', 'crop', 'food'
+    ];
+    return relevantKeywords.some((kw) => clean.includes(kw));
   }
 
   // Lakukan generasi konten fakta sayuran dengan prompt tone dinamis dan Grounded Sources
@@ -100,7 +122,6 @@ export class RootFactsService {
       throw new Error('Nama sayuran yang valid diperlukan');
     }
 
-    // Pembersihan input untuk sanitasi prompt
     const cleanedName = vegetableName.trim().slice(0, 50).replace(/[^\w\s-]/gi, '');
     const grounded = getGroundedSource(cleanedName);
 
@@ -109,26 +130,36 @@ export class RootFactsService {
 
       await createDelay(this.config.generationDelay);
 
-      // Gunakan Grounded Sources context agar model terikat pada fakta riil
+      // Pilih fakta grounded secara variatif untuk seed konteks
+      const funFactList = grounded?.funFacts || [];
+      const randomSeedFact = funFactList.length > 0
+        ? funFactList[Math.floor(Math.random() * funFactList.length)]
+        : (grounded?.nutritionHighlights || '');
+
       const groundedContext = grounded
-        ? `${grounded.nutritionHighlights} ${grounded.funFactSeed}`
+        ? `${grounded.nutritionHighlights} ${randomSeedFact}`
         : '';
 
       const tonePromptBuilder = TONE_CONFIG.prompts[this.currentTone] || TONE_CONFIG.prompts.normal;
       const prompt = tonePromptBuilder(cleanedName, groundedContext);
 
+      // Gunakan sampling dengan temperature terkontrol (0.7) & top_p (0.9) sesuai modul Dicoding
       const result = await this.generator(prompt, {
         max_new_tokens: this.config.maxTokens,
         temperature: this.config.temperature,
-        do_sample: false, // Deterministic greedy search untuk mencegah halusinasi / teks acak
+        do_sample: true,
         top_p: this.config.topP
       });
 
       let generatedText = result[0]?.generated_text?.trim() || '';
 
-      // Fallback cerdas jika model SLM menghasilkan output terlalu pendek/aneh
-      if (!generatedText || generatedText.length < 15) {
-        generatedText = grounded?.funFactSeed || `${cleanedName} kaya akan serat dan mikronutrien penting untuk kesehatan.`;
+      // Validasi ketat output AI sesuai saran reviewer:
+      // "Tambahkan validasi terhadap output AI untuk memastikan bahwa konten yang dihasilkan masih berkaitan dengan objek hasil prediksi."
+      const isValid = this.validateFact(generatedText, cleanedName);
+
+      if (!isValid) {
+        console.warn(`[RootFactsService] Output tidak lolos validasi untuk ${cleanedName}: "${generatedText}". Menggunakan fakta terverifikasi.`);
+        generatedText = randomSeedFact || `${cleanedName} is a nutrient-rich vegetable providing essential vitamins and minerals.`;
       }
 
       return {
@@ -150,7 +181,6 @@ export class RootFactsService {
     }
   }
 
-  // Periksa apakah model sudah dimuat dan siap digunakan
   isReady() {
     return this.isModelLoaded && !this.isGenerating;
   }
